@@ -2,7 +2,7 @@ name: Generate final image
 
 on:
   workflow_dispatch:
-  pull-requests:
+  pull_request:
     branches:
       - main
 
