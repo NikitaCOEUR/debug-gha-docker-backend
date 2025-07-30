@@ -3,10 +3,6 @@ name: Debug docker buildx gha backend onbuild run
 on:
   workflow_dispatch:
 
-env:
-  OCI_REGISTRY: ghcr.io
-  OCI_REGISTRY_PASSWORD: "${{ secrets.GITHUB_TOKEN }}"
-
 permissions:
   contents: read
   issues: read
@@ -22,10 +18,10 @@ jobs:
     secrets:
       # Password or GitHub token (packages:read and packages:write scopes) used to log against the OCI registry.
       # See https://github.com/docker/login-action#usage.
-      oci-registry-password: ${{ env.OCI_REGISTRY_PASSWORD }}
+      oci-registry-password: ${{ secrets.GITHUB_TOKEN }}
     with:
       runs-on: '["ubuntu-latest"]'
-      oci-registry: "${{ env.OCI_REGISTRY }}"
+      oci-registry: "ghcr.io"
       images: |
         [
           {
