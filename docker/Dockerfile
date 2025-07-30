@@ -1,3 +1,7 @@
-FROM ghcr.io/nikitacoeur/debug-gha-docker-backend/application:main
+FROM ghcr.io/nikitacoeur/debug-gha-docker-backend/without-onbuild:main AS without-onbuild
 
-RUN echo "This an echo inside final dockerfile."
+RUN echo "This an echo inside final dockerfile without ONBUILD instructions."
+
+FROM ghcr.io/nikitacoeur/debug-gha-docker-backend/with-onbuild:main AS with-onbuild
+
+RUN echo "This an echo inside final dockerfile after ONBUILD instructions."

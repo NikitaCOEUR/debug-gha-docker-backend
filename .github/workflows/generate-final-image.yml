@@ -23,8 +23,16 @@ jobs:
       images: |-
         [
           {
-              "name": "final",
+              "name": "final-without-onbuild",
               "context": ".",
+              "target": "without-onbuild",
+              "dockerfile": "./docker/Dockerfile",
+            "platforms": ["linux/amd64"]
+          },
+          {
+              "name": "final-with-onbuild",
+              "context": ".",
+              "target": "with-onbuild",
               "dockerfile": "./docker/Dockerfile",
             "platforms": ["linux/amd64"]
           }
