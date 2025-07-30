@@ -2,6 +2,9 @@ name: Generate base image with onbuild
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
