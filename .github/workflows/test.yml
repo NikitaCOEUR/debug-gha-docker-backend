@@ -20,15 +20,12 @@ jobs:
     with:
       runs-on: '["ubuntu-latest"]'
       oci-registry: "ghcr.io"
-      images: |
+      images: |-
         [
           {
               "name": "application",
               "context": ".",
               "dockerfile": "./docker/Dockerfile.onbuild",
-              "target": "prod",
-            "platforms": [
-              "linux/amd64",
-            ]
+            "platforms": ["linux/amd64"]
           }
         ]
