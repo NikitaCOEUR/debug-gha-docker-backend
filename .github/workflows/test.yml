@@ -13,8 +13,6 @@ permissions:
 jobs:
   docker-build-first-image:
     uses: hoverkraft-tech/ci-github-container/.github/workflows/docker-build-images.yml@0.26.0
-    env:
-      DOCKER_FILE: ./docker/Dockerfile
     secrets:
       # Password or GitHub token (packages:read and packages:write scopes) used to log against the OCI registry.
       # See https://github.com/docker/login-action#usage.
@@ -27,7 +25,7 @@ jobs:
           {
               "name": "application",
               "context": ".",
-              "dockerfile": "${{ env.DOCKER_FILE }}",
+              "dockerfile": "./docker/Dockerfile.onbuild",
               "target": "prod",
             "platforms": [
               "linux/amd64",
