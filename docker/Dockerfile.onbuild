@@ -1,0 +1,5 @@
+FROM ubuntu:22.04
+
+RUN echo "This an echo before ONBUILD instruction in the Dockerfile.onbuild file."
+
+ONBUILD RUN echo "This an echo inside ONBUILD instruction in the Dockerfile.onbuild file."

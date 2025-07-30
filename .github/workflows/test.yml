@@ -1,0 +1,40 @@
+name: Debug docker buildx gha backend onbuild run
+
+on:
+  workflow_dispatch:
+
+env:
+  OCI_REGISTRY: ghcr.io
+  OCI_REGISTRY_PASSWORD: "${{ secrets.GITHUB_TOKEN }}"
+
+permissions:
+  contents: read
+  issues: read
+  packages: write
+  pull-requests: read
+  id-token: write
+
+jobs:
+  docker-build-first-image:
+    uses: hoverkraft-tech/ci-github-container/.github/workflows/docker-build-images.yml@0.26.0
+    env:
+      DOCKER_FILE: ./docker/Dockerfile
+    secrets:
+      # Password or GitHub token (packages:read and packages:write scopes) used to log against the OCI registry.
+      # See https://github.com/docker/login-action#usage.
+      oci-registry-password: ${{ env.OCI_REGISTRY_PASSWORD }}
+    with:
+      runs-on: '["ubuntu-latest"]'
+      oci-registry: "${{ env.OCI_REGISTRY }}"
+      images: |
+        [
+          {
+              "name": "application",
+              "context": ".",
+              "dockerfile": "${{ env.DOCKER_FILE }}",
+              "target": "prod",
+            "platforms": [
+              "linux/amd64",
+            ]
+          }
+        ]
