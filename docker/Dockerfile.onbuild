@@ -4,4 +4,5 @@ RUN echo "This an echo before ONBUILD instruction in the Dockerfile.onbuild file
 
 FROM without-onbuild AS with-onbuild
 
-ONBUILD RUN echo "This an echo inside ONBUILD instruction in the Dockerfile.onbuild file."
+ONBUILD ARG MODE_PROD=""
+ONBUILD ENV MODE_PROD=${MODE_PROD}
