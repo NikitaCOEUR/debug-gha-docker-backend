@@ -39,6 +39,9 @@ jobs:
               "name": "final-with-onbuild",
               "context": ".",
               "target": "with-onbuild",
+              "build-args": {
+                "MODE_PROD": "true"
+              },
               "dockerfile": "./docker/Dockerfile",
             "platforms": ["linux/amd64"]
           }
