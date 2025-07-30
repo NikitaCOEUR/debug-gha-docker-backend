@@ -1,0 +1,31 @@
+name: Generate base image with onbuild
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: read
+  packages: write
+  pull-requests: read
+  id-token: write
+
+jobs:
+  docker-build-first-image:
+    uses: hoverkraft-tech/ci-github-container/.github/workflows/docker-build-images.yml@0.26.0
+    secrets:
+      # Password or GitHub token (packages:read and packages:write scopes) used to log against the OCI registry.
+      # See https://github.com/docker/login-action#usage.
+      oci-registry-password: ${{ secrets.GITHUB_TOKEN }}
+    with:
+      runs-on: '["ubuntu-latest"]'
+      oci-registry: "ghcr.io"
+      images: |-
+        [
+          {
+              "name": "application",
+              "context": ".",
+              "dockerfile": "./docker/Dockerfile.onbuild",
+            "platforms": ["linux/amd64"]
+          }
+        ]

@@ -1,4 +1,4 @@
-name: Debug docker buildx gha backend onbuild run
+name: Generate final image
 
 on:
   workflow_dispatch:
@@ -23,9 +23,9 @@ jobs:
       images: |-
         [
           {
-              "name": "application",
+              "name": "final",
               "context": ".",
-              "dockerfile": "./docker/Dockerfile.onbuild",
+              "dockerfile": "./docker/Dockerfile",
             "platforms": ["linux/amd64"]
           }
         ]
